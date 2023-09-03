@@ -6,4 +6,4 @@
 
 #### Проверьте вашу скорость набора текста, обучитесь слепой печати и укрепляйте навыки набора текста.
 
-## [Demo](https://key-ninja.netlify.app )
+## [Demo](https://key-ninja.netlify.app 'Key-ninja')
