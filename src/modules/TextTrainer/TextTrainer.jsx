@@ -32,10 +32,14 @@ const TextTrainer = () => {
         e.preventDefault();
 
         if(e.key === 'Backspace' && counter > 0) {
-            let arrSpan = [...span];
-            arrSpan[counter - 1].status = 'none';
-            setSpan(arrSpan);
-            setCounter(counter = counter - 1);
+     
+            setSpan((prevSpan) => {
+                return prevSpan.map((elem, index) => {
+                    return (index === counter - 1) ? {...elem, status: 'none'} : elem;
+                })
+            });
+
+            setCounter((prevCount) => prevCount - 1);
         }
 
         if ((!(e.key.length > 1) || e.key == 'Space') && span.length > counter) {
