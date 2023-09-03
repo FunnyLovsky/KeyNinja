@@ -28,7 +28,7 @@ const TextTrainer = () => {
     }, [start, reset])
     
 
-    function createSpan(e) {
+    const createSpan = (e) => {
         e.preventDefault();
 
         if(e.key === 'Backspace' && counter > 0) {
@@ -54,14 +54,14 @@ const TextTrainer = () => {
         }
     }
 
-    function getNewText() {
+    const getNewText = () => {
         countError.clear();
         app.start()
         setCounter(counter = 0);
         setSpan([...app.getArray()]);
     }
 
-    function startTest() {
+    const startTest = () => {
         countError.clear();
         setStart(true);
         app.start();
@@ -69,7 +69,7 @@ const TextTrainer = () => {
         (!reset) ? setSpan([...app.getArray()]) : setReset(false);
     }
 
-    function resetText() {
+    const resetText = () => {
         countError.clear();
         setStart(false);
         app.start();
