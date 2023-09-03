@@ -1,3 +1,4 @@
+![logo](https://github.com/FunnyLovsky/key-ninja-project/blob/master/src/assets/logo.jpg)
 # **KeyNinja project**
 
 ## Клавиатурный тренажер
