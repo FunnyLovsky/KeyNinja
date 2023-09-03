@@ -11,10 +11,10 @@ const app = new App();
 
 const TextTrainer = () => {
 
-    let [counter, setCounter] = useState(0);
-    let [span, setSpan] = useState([]);
-    let [start, setStart] = useState(false);
-    let [reset, setReset] = useState(false);
+    const [counter, setCounter] = useState(0);
+    const [span, setSpan] = useState([]);
+    const [start, setStart] = useState(false);
+    const [reset, setReset] = useState(false);
 
     const textInput = useRef();
 
@@ -43,25 +43,31 @@ const TextTrainer = () => {
         }
 
         if ((!(e.key.length > 1) || e.key == 'Space') && span.length > counter) {
-            let arrSpan = [...span];
 
-            if((e.key == arrSpan[counter].text)) {
-                arrSpan[counter].status = 'true';
-                
-            } else {
-                arrSpan[counter].status = 'false';
-                countError.counter();
-            }
-    
-            setSpan(arrSpan);
-            setCounter(counter = counter + 1);
+            setSpan((prevSpan) => {
+                return prevSpan.map((elem, index) => {
+                    
+                    if(index === counter) {
+                        if(e.key === elem.text) {
+                            return {...elem, status: 'true'};
+                        } else {
+                            countError.counter();
+                            return {...elem, status: 'false'};
+                        }
+                    }
+
+                    return elem;
+                });
+            });
+
+            setCounter((prevCount) => prevCount + 1);
         }
     }
 
     const getNewText = () => {
         countError.clear();
         app.start()
-        setCounter(counter = 0);
+        setCounter(0);
         setSpan([...app.getArray()]);
     }
 
@@ -77,7 +83,7 @@ const TextTrainer = () => {
         countError.clear();
         setStart(false);
         app.start();
-        setCounter(counter = 0);
+        setCounter(0);
         setReset(true);
         setSpan([...app.resetArray()]);
     }
