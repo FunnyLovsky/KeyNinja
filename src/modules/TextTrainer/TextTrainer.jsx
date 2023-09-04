@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 
-import ModalFinalText from "../../components/modalFinalText/ModalFinalText.jsx";
-import ModalStartText from "../../components/modalStartText/ModalStartText.jsx";
+import ModalFinalText from "../../components/ModalFinalText.jsx";
+import ModalStartText from "../../components/ModalStartText.jsx";
 import TextInputItem from "./component/TextInputItem.jsx";
 
-import App from './app/app.js';
-import countError from "./app/countError.js";
+import App from './hooks/app.js';
+import countError from "./hooks/countError.js";
 const app = new App();
 
 

@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../../ui/Button.jsx";
-import ModalComponent from "../../ui/ModalComponent.jsx";
+import Button from "../ui/Button.jsx";
+import ModalComponent from "../ui/ModalComponent.jsx";
 
 
 
