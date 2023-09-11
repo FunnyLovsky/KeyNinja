@@ -19,18 +19,6 @@ const TextTrainer = () => {
     const [reset, setReset] = useState(false);
     
 
-    const textInput = useRef();
-
-    useEffect(() => {
-        const elem = textInput.current;
-        if(elem) {
-            elem.focus();
-            console.log('focus')
-        }
-
-    }, [start, reset])
-    
-
     const createSpan = (e) => {
         e.preventDefault();
 
@@ -92,28 +80,33 @@ const TextTrainer = () => {
         setReset(true);
         setSpan([...app.resetArray()]);
     }
+    
+    return(
+        <div className="text_input_container">
+            {!start && (
+                <ModalStartText 
+                    start={startTest}
+                />
+            )}
 
-    if(!start) {
-        return(
-            <div className="text_input_container">
-                <ModalStartText start={startTest}/>
-            </div>
-        )
-    }
+            {start && span.length === counter && (
+                <ModalFinalText 
+                    create={getNewText} 
+                    reset={resetText} 
+                    timer={app}
+                />
+            )}
 
-    if(span.length == counter) {
-        return(
-            <div className="text_input_container">
-                <ModalFinalText create={getNewText} reset={resetText} timer={app}/>
-            </div>
-        )
-    } else {
-        return(
-            <div className="text_input_container">
-                <TextInputItem ref={textInput} createSpan={createSpan} resetText={resetText} span={span} newText={getNewText}/>
-            </div>
-        )
-    }
+            {start && span.length !== counter && (
+                <TextInputItem 
+                    createSpan={createSpan} 
+                    resetText={resetText} 
+                    span={span} 
+                    newText={getNewText}
+                />
+            )}
+        </div>
+    )
 };
 
 export default TextTrainer;

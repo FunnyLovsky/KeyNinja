@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import ModalComponent from "../../../ui/ModalComponent.jsx";
 import Button from "../../../ui/Button.jsx";
 
-const TextInputItem = React.forwardRef(({createSpan, resetText, span, newText}, ref) =>  {
+const TextInputItem = ({createSpan, resetText, span, newText}) =>  {
+
+    const inputElem = useRef();
+
+    useEffect(() => {
+        activeInput()
+    }, [])
+
+    const activeInput = () => {
+        console.log('active input');
+        inputElem.current.focus()
+    }
 
     return(
         <ModalComponent className={''}>
-            <div tabIndex={1} onKeyDown={(e) => createSpan(e)} ref={ref} className="text_input" >
+            <div onKeyDown={(e) => createSpan(e)} className="text_input" onClick={activeInput}>
 
+                <input type="text" ref={inputElem} onBlur={activeInput}/>
                 {span.map(item => <span key={item.id} className={item.status}>{item.text}</span>)}
                 
             </div>
@@ -21,6 +33,6 @@ const TextInputItem = React.forwardRef(({createSpan, resetText, span, newText}, 
             </ModalComponent>
         </ModalComponent>
     );
-});
+};
 
 export default TextInputItem;

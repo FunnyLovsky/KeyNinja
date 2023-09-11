@@ -4,8 +4,15 @@
     outline: none;
     font-size: 30px;
     text-overflow: clip;
+    position: relative;
     overflow: hidden;
     animation: start .5s ease;
+
+    & input {
+        position: absolute;
+        top: 0;
+        opacity: 0;
+    }
 
     & span {
 
