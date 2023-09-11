@@ -6,15 +6,15 @@ import TextInputItem from "./component/TextInputItem.jsx";
 
 import App from './hooks/app.js';
 import countError from "./hooks/countError.js";
-import {useCreateSpan} from './hooks/useCreateSpan.jsx'
+// import {useCreateSpan} from './hooks/useCreateSpan.jsx'
 const app = new App();
 
 
 const TextTrainer = () => {
 
-    // const [counter, setCounter] = useState(0);
-    // const [span, setSpan] = useState([]);
-    const [array, setArray] = useCreateSpan([])
+    const [counter, setCounter] = useState(0);
+    const [span, setSpan] = useState([]);
+    // const [array, setArray] = useCreateSpan([])
     const [start, setStart] = useState(false);
     const [reset, setReset] = useState(false);
     
@@ -34,39 +34,39 @@ const TextTrainer = () => {
     const createSpan = (e) => {
         e.preventDefault();
 
-        setArray(e.key);
+        // setArray(e.key);
 
-        // if(e.key === 'Backspace' && counter > 0) {
+        if(e.key === 'Backspace' && counter > 0) {
      
-        //     setSpan((prevSpan) => {
-        //         return prevSpan.map((elem, index) => {
-        //             return (index === counter - 1) ? {...elem, status: 'none'} : elem;
-        //         })
-        //     });
+            setSpan((prevSpan) => {
+                return prevSpan.map((elem, index) => {
+                    return (index === counter - 1) ? {...elem, status: 'none'} : elem;
+                })
+            });
 
-        //     setCounter((prevCount) => prevCount - 1);
-        // }
+            setCounter((prevCount) => prevCount - 1);
+        }
 
-        // if ((!(e.key.length > 1) || e.key == 'Space') && span.length > counter) {
+        if ((!(e.key.length > 1) || e.key == 'Space') && span.length > counter) {
 
-        //     setSpan((prevSpan) => {
-        //         return prevSpan.map((elem, index) => {
+            setSpan((prevSpan) => {
+                return prevSpan.map((elem, index) => {
                     
-        //             if(index === counter) {
-        //                 if(e.key === elem.text) {
-        //                     return {...elem, status: 'true'};
-        //                 } else {
-        //                     countError.counter();
-        //                     return {...elem, status: 'false'};
-        //                 }
-        //             }
+                    if(index === counter) {
+                        if(e.key === elem.text) {
+                            return {...elem, status: 'true'};
+                        } else {
+                            countError.counter();
+                            return {...elem, status: 'false'};
+                        }
+                    }
 
-        //             return elem;
-        //         });
-        //     });
+                    return elem;
+                });
+            });
 
-        //     setCounter((prevCount) => prevCount + 1);
-        // }
+            setCounter((prevCount) => prevCount + 1);
+        }
     }
 
     const getNewText = () => {

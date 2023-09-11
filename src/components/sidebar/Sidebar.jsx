@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from '../../assets/icon.svg';
+import logo from '../../../public/assets/icon.svg';
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
