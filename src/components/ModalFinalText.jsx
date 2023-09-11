@@ -5,14 +5,6 @@ import ModalComponent from "../ui/ModalComponent.jsx";
 
 
 const ModalFinalText = ({create, reset, timer}) => {
-    function gettext() {
-        create();
-    }
-
-    function resetText() {
-        reset();
-    }
-
     const time = timer;
 
     let [getTime, getCounError, getSpeed] = time.getResult()
@@ -28,8 +20,8 @@ const ModalFinalText = ({create, reset, timer}) => {
                 </ModalComponent>
             </ModalComponent>
             <ModalComponent className={'modal_btn'}>
-                <Button onClick={resetText}>Заново</Button>
-                <Button onClick={gettext}>Новый</Button>
+                <Button onClick={reset}>Заново</Button>
+                <Button onClick={create}>Новый</Button>
             </ModalComponent>
         </ModalComponent>
     );
