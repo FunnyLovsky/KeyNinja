@@ -20,7 +20,16 @@ const TextInputItem = ({createSpan, resetText, span, newText}) =>  {
         <ModalComponent className={''}>
             <div onKeyDown={(e) => createSpan(e)} className="text_input" onClick={activeInput}>
 
-                <input type="text" ref={inputElem} onBlur={activeInput}/>
+                <input 
+                    type="text" 
+                    autocorrect="off" 
+                    spellcheck="false" 
+                    autocapitalize="off" 
+                    autocomplete="off"
+                    ref={inputElem} 
+                    onBlur={activeInput}
+                />
+                
                 {span.map(item => <span key={item.id} className={item.status}>{item.text}</span>)}
                 
             </div>
