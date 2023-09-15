@@ -22,10 +22,10 @@ const TextInputItem = ({createSpan, resetText, span, newText}) =>  {
 
                 <input 
                     type="text" 
-                    autocorrect="off" 
-                    spellcheck="false" 
-                    autocapitalize="off" 
-                    autocomplete="off"
+                    autoCorrect="off" 
+                    spellCheck="false" 
+                    autoCapitalize="off" 
+                    autoComplete="off"
                     ref={inputElem} 
                     onBlur={activeInput}
                 />

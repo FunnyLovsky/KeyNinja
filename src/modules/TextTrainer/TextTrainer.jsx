@@ -1,84 +1,52 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useState } from "react";
 
 import ModalFinalText from "../../components/ModalFinalText.jsx";
 import ModalStartText from "../../components/ModalStartText.jsx";
 import TextInputItem from "./component/TextInputItem.jsx";
 
-import App from './hooks/app.js';
-import countError from "./hooks/countError.js";
-// import {useCreateSpan} from './hooks/useCreateSpan.jsx'
-const app = new App();
-
+import { useArrayTransform } from "./hooks/useArrayTransform.js";
+import { useCountError } from "./hooks/useCountError.js";
+import { useWorkTimer } from "./hooks/useWorkTimer.js";
+import { resultProvider } from "./hooks/resultProvider.js";
 
 const TextTrainer = () => {
+    const {countError, clearError, incrementError} = useCountError();
+    const {startTime, startWork} = useWorkTimer();
+    const {array, position, setPosition, createArray, resetArray, createSpan} = useArrayTransform();
+    const getResult = resultProvider();
 
-    const [counter, setCounter] = useState(0);
-    const [span, setSpan] = useState([]);
-    // const [array, setArray] = useCreateSpan([])
     const [start, setStart] = useState(false);
     const [reset, setReset] = useState(false);
     
-
-    const createSpan = (e) => {
+    const changeSpan = (e) => {
         e.preventDefault();
-
-        // setArray(e.key);
-
-        if(e.key === 'Backspace' && counter > 0) {
-     
-            setSpan((prevSpan) => {
-                return prevSpan.map((elem, index) => {
-                    return (index === counter - 1) ? {...elem, status: 'none'} : elem;
-                })
-            });
-
-            setCounter((prevCount) => prevCount - 1);
-        }
-
-        if ((!(e.key.length > 1) || e.key == 'Space') && span.length > counter) {
-
-            setSpan((prevSpan) => {
-                return prevSpan.map((elem, index) => {
-                    
-                    if(index === counter) {
-                        if(e.key === elem.text) {
-                            return {...elem, status: 'true'};
-                        } else {
-                            countError.counter();
-                            return {...elem, status: 'false'};
-                        }
-                    }
-
-                    return elem;
-                });
-            });
-
-            setCounter((prevCount) => prevCount + 1);
-        }
+        createSpan(e.key, incrementError);
     }
 
     const getNewText = () => {
-        countError.clear();
-        app.start()
-        setCounter(0);
-        setSpan([...app.getArray()]);
+        clearError()
+        startWork();
+        setPosition(0);
+        createArray();
     }
 
     const startTest = () => {
-        countError.clear();
+        clearError();
+        startWork();
         setStart(true);
-        app.start();
         
-        (!reset) ? setSpan([...app.getArray()]) : setReset(false);
+        if(!reset) {
+            createArray()
+        }
     }
 
     const resetText = () => {
-        countError.clear();
+        clearError();
         setStart(false);
-        app.start();
-        setCounter(0);
+        startWork();
+        setPosition(0);
         setReset(true);
-        setSpan([...app.resetArray()]);
+        resetArray();
     }
     
     return(
@@ -89,19 +57,19 @@ const TextTrainer = () => {
                 />
             )}
 
-            {start && span.length === counter && (
+            {start && array.length === position && (
                 <ModalFinalText 
                     create={getNewText} 
                     reset={resetText} 
-                    timer={app}
+                    result={getResult(array, startTime, countError)}
                 />
             )}
 
-            {start && span.length !== counter && (
+            {start && array.length !== position && (
                 <TextInputItem 
-                    createSpan={createSpan} 
+                    createSpan={changeSpan} 
                     resetText={resetText} 
-                    span={span} 
+                    span={array} 
                     newText={getNewText}
                 />
             )}

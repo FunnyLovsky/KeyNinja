@@ -2,12 +2,8 @@ import React from "react";
 import Button from "../ui/Button.jsx";
 import ModalComponent from "../ui/ModalComponent.jsx";
 
-
-
-const ModalFinalText = ({create, reset, timer}) => {
-    const time = timer;
-
-    let [getTime, getCounError, getSpeed] = time.getResult()
+const ModalFinalText = ({create, reset, result}) => {
+    const [getTime, getCounError, getSpeed] = result;
 
     return(
         <ModalComponent className={'modal_container'}>
