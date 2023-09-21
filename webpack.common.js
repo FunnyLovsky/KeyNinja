@@ -1,18 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
-    mode: 'production',
     entry: ["@babel/polyfill", './src/index.jsx'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[hash].js'
-    },
-
-    devServer: {
-        port: 3000,
-        historyApiFallback: true
     },
 
     module: {
@@ -50,6 +45,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({template: './public/index.html'}),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new FaviconsWebpackPlugin('./public/assets/icon.svg')
     ]
 }

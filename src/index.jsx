@@ -1,11 +1,14 @@
 import React from "react";
-import { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom/client'
 import App from './App.jsx';
-import logo from './assets/icon.svg';
+import { BrowserRouter } from "react-router-dom";
 
-document.head.insertAdjacentHTML('beforeend', `<link rel="icon" href=${logo}>`);
 
-const container = document.querySelector('#root');
-const root = createRoot(container);
+const root = ReactDOM.createRoot(document.querySelector('#root'));
 
-root.render(<App/>)
+root.render(
+    <BrowserRouter>
+        <App/>
+    </BrowserRouter>
+
+);

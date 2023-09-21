@@ -1,37 +1,47 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import ModalComponent from "../../../ui/ModalComponent.jsx";
-import TextInput from '../../../components/textInput/textInput.jsx';
 import Button from "../../../ui/Button.jsx";
 
-const TextInputItem = React.forwardRef(({createSpan, resetText, span, newText}, ref) =>  {
+const TextInputItem = ({createSpan, resetText, span, newText}) =>  {
 
-    function create(e) {
-        createSpan(e);
-    }
+    const inputElem = useRef();
 
-    function reset() {
-        resetText();
-    }
+    useEffect(() => {
+        activeInput()
+    }, [])
 
-    function newtext() {
-        newText();
+    const activeInput = () => {
+        console.log('active input');
+        inputElem.current.focus()
     }
 
     return(
         <ModalComponent className={''}>
-            <div tabIndex={1} onKeyDown={create} ref={ref} className="text_input" >
-                {  
-                    span.map((item, index) => {return <span key={item.id} className={item.status}>{item.text}</span>}) 
-                }
+            <div onKeyDown={(e) => createSpan(e)} className="text_input" onClick={activeInput}>
+
+                <input 
+                    type="text" 
+                    autoCorrect="off" 
+                    spellCheck="false" 
+                    autoCapitalize="off" 
+                    autoComplete="off"
+                    ref={inputElem} 
+                    onBlur={activeInput}
+                />
+                
+                {span.map(item => <span key={item.id} className={item.status}>{item.text}</span>)}
+                
             </div>
             <ModalComponent className={'text_input_item'}>
-                <Button onClick={reset}>Сброс</Button>
+
+                <Button onClick={resetText}>Сброс</Button>
                 <Button>Настройки</Button>
-                <Button onClick={newtext}>Новый</Button>
+                <Button onClick={newText}>Новый</Button>
+
             </ModalComponent>
         </ModalComponent>
     );
-});
+};
 
 export default TextInputItem;

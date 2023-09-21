@@ -1,94 +1,79 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useState } from "react";
 
-import ModalFinalText from "../../components/modalFinalText/ModalFinalText.jsx";
-import ModalStartText from "../../components/modalStartText/ModalStartText.jsx";
+import ModalFinalText from "../../components/ModalFinalText.jsx";
+import ModalStartText from "../../components/ModalStartText.jsx";
 import TextInputItem from "./component/TextInputItem.jsx";
 
-import App from './app/app.js';
-import countError from "./app/countError.js";
-const app = new App();
-
+import { useArrayTransform } from "./hooks/useArrayTransform.js";
+import { useCountError } from "./hooks/useCountError.js";
+import { useWorkTimer } from "./hooks/useWorkTimer.js";
+import { resultProvider } from "./hooks/resultProvider.js";
 
 const TextTrainer = () => {
+    const {countError, clearError, incrementError} = useCountError();
+    const {startTime, startWork} = useWorkTimer();
+    const {array, position, setPosition, createArray, resetArray, createSpan} = useArrayTransform();
+    const getResult = resultProvider();
 
-    let [counter, setCounter] = useState(0);
-    let [span, setSpan] = useState([]);
-    let [start, setStart] = useState(false);
-    let [reset, setReset] = useState(false);
-
-    const textInput = useRef();
-
-    useEffect(() => {
-        const elem = textInput.current;
-        if(elem) {
-            elem.focus();
-            console.log('focus')
-        }
-
-    }, [start, reset])
+    const [start, setStart] = useState(false);
+    const [reset, setReset] = useState(false);
     
-
-    function createSpan(e) {
+    const changeSpan = (e) => {
         e.preventDefault();
-
-        if(e.key === 'Backspace' && counter > 0) {
-            let arrSpan = [...span];
-            arrSpan[counter - 1].status = 'none';
-            setSpan(arrSpan);
-            setCounter(counter = counter - 1);
-        }
-
-        if ((!(e.key.length > 1) || e.key == 'Space') && span.length > counter) {
-            let arrSpan = [...span];
-
-            if((e.key == arrSpan[counter].text)) {
-                arrSpan[counter].status = 'true';
-                
-            } else {
-                arrSpan[counter].status = 'false';
-                countError.counter();
-            }
-    
-            setSpan(arrSpan);
-            setCounter(counter = counter + 1);
-        }
+        createSpan(e.key, incrementError);
     }
 
-    function getNewText() {
-        countError.clear();
-        app.start()
-        setCounter(counter = 0);
-        setSpan([...app.getArray()]);
+    const getNewText = () => {
+        clearError()
+        startWork();
+        setPosition(0);
+        createArray();
     }
 
-    function startTest() {
-        countError.clear();
+    const startTest = () => {
+        clearError();
+        startWork();
         setStart(true);
-        app.start();
         
-        (!reset) ? setSpan([...app.getArray()]) : setReset(false);
+        if(!reset) {
+            createArray()
+        }
     }
 
-    function resetText() {
-        countError.clear();
+    const resetText = () => {
+        clearError();
         setStart(false);
-        app.start();
-        setCounter(counter = 0);
+        startWork();
+        setPosition(0);
         setReset(true);
-        setSpan([...app.resetArray()]);
+        resetArray();
     }
-
+    
     return(
         <div className="text_input_container">
-            {
-                (!start) ? <ModalStartText start={startTest} textInput={textInput}/> : 
+            {!start && (
+                <ModalStartText 
+                    start={startTest}
+                />
+            )}
 
-                    (span.length == counter) ? <ModalFinalText create={getNewText} reset={resetText} timer={app}/> :
+            {start && array.length === position && (
+                <ModalFinalText 
+                    create={getNewText} 
+                    reset={resetText} 
+                    result={getResult(array, startTime, countError)}
+                />
+            )}
 
-                    <TextInputItem ref={textInput} createSpan={createSpan} resetText={resetText} span={span} newText={getNewText}/>
-            }
+            {start && array.length !== position && (
+                <TextInputItem 
+                    createSpan={changeSpan} 
+                    resetText={resetText} 
+                    span={array} 
+                    newText={getNewText}
+                />
+            )}
         </div>
-        
     )
 };
 
