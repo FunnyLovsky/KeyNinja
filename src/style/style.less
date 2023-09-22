@@ -6,7 +6,7 @@
     text-overflow: clip;
     position: relative;
     overflow: hidden;
-    animation: start .5s ease;
+    animation: start 0.5s ease;
 
     & input {
         position: absolute;
@@ -15,19 +15,16 @@
     }
 
     & span {
-
-        opacity: .5;
+        opacity: 0.5;
     }
 
     .true {
         opacity: 1;
-   
     }
 
     .false {
         color: lighten(red, 10%);
         text-decoration: underline;
-        
     }
 }
 
@@ -44,9 +41,9 @@
     color: #cbd0df;
     width: auto;
     border-radius: 8px;
-    font-family:  monospace;
+    font-family: monospace;
     font-weight: bold;
-    transition: .2s;
+    transition: 0.2s;
     outline: none;
     opacity: 0;
 
@@ -59,7 +56,7 @@
     }
 
     &:active {
-        transform: scale(.9);
+        transform: scale(0.9);
     }
 }
 
@@ -71,7 +68,6 @@
     justify-content: space-between;
     align-items: center;
     animation: start 0.5s;
-    
 
     & .modal_item {
         width: 100%;
@@ -83,8 +79,13 @@
     }
 }
 
-
 @keyframes start {
-    0% {opacity: 0; transform: translateY(20px);}
-    100% {opacity: 1; transform: translateY(0);}
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

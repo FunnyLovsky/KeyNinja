@@ -1,23 +1,20 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from 'react';
 
-import Header from "../ui/Header.jsx";
+import Header from '../ui/Header.jsx';
 
-import Container from "../ui/Container.jsx";
-import TextTrainer from "../modules/TextTrainer/TextTrainer.jsx";
+import Container from '../ui/Container.jsx';
+import TextTrainer from '../modules/TextTrainer/TextTrainer.jsx';
 
 const Test = () => {
-    
     useEffect(() => {
         document.title = 'KeyNinja - тренажер';
-    }, [])
+    }, []);
 
-    
-    return(
+    return (
         <Container>
-            <Header title='тренажер'/>
-            <TextTrainer/>
+            <Header title="тренажер" />
+            <TextTrainer />
         </Container>
-
     );
 };
 

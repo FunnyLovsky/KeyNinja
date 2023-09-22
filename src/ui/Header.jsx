@@ -1,9 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Header = (props) => {
-    return(
-        <h1 className="header">KeyNinja - {props.title}</h1>
-    );
+    return <h1 className="header">KeyNinja - {props.title}</h1>;
 };
 
 export default Header;

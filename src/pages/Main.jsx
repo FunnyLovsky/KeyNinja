@@ -1,24 +1,21 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from 'react';
 
-import Container from "../ui/Container.jsx";
-import Button from "../ui/Button.jsx";
-import { Link } from "react-router-dom";
+import Container from '../ui/Container.jsx';
+import Button from '../ui/Button.jsx';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
-
     useEffect(() => {
         document.title = 'KeyNinja';
     }, []);
-    
-    return(
+
+    return (
         <Container>
-            <h1 style={{textAlign: 'center'}}>Welcome the KeyNinja!</h1>
-            <Link to='/test'>
+            <h1 style={{ textAlign: 'center' }}>Welcome the KeyNinja!</h1>
+            <Link to="/test">
                 <Button>Тренажер</Button>
             </Link>
-
         </Container>
-
     );
 };
 

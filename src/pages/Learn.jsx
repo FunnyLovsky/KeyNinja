@@ -1,23 +1,17 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from 'react';
 
-import Header from "../ui/Header.jsx";
-import Container from "../ui/Container.jsx";
-
+import Header from '../ui/Header.jsx';
+import Container from '../ui/Container.jsx';
 
 const Learn = () => {
-
     useEffect(() => {
         document.title = 'KeyNinja - обучение';
     }, []);
-    
-    
-    return(
-        
-        <Container>
-            <Header title='обучение'/>
-        </Container>
-       
 
+    return (
+        <Container>
+            <Header title="обучение" />
+        </Container>
     );
 };
 

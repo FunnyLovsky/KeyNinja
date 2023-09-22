@@ -1,11 +1,11 @@
-import React from "react";
-import Button from "../ui/Button.jsx";
-import ModalComponent from "../ui/ModalComponent.jsx";
+import React from 'react';
+import Button from '../ui/Button.jsx';
+import ModalComponent from '../ui/ModalComponent.jsx';
 
-const ModalFinalText = ({create, reset, result}) => {
+const ModalFinalText = ({ create, reset, result }) => {
     const [getTime, getCounError, getSpeed] = result;
 
-    return(
+    return (
         <ModalComponent className={'modal_container'}>
             <ModalComponent className={'modal_item'}>
                 <h1>Результаты:</h1>
